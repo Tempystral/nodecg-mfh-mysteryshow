@@ -9,4 +9,4 @@ import { get as nodecg } from './nodecg';
 
 // YOU CAN REMOVE THIS RULE WHEN YOU GET MULTIPLE REPLICANTS!
 // eslint-disable-next-line import/prefer-default-export
-export const exampleReplicant = nodecg().Replicant</* NAME */>('<NAME>');
+// export const exampleReplicant = nodecg().Replicant</* NAME */>('<NAME>');
