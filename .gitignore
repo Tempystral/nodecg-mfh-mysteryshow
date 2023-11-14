@@ -16,6 +16,7 @@ lerna-debug.log*
 /dashboard/
 /extension/
 /graphics/
+/shared/dist/
 
 # vscode stuff
 .vscode/*

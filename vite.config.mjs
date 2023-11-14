@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import NodeCGPlugin from 'vite-plugin-nodecg';
+import vuetify from "vite-plugin-vuetify";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,6 +15,10 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+	vuetify({
+    	autoImport: true,
+        styles: { configFile: './src/scss/vuetify-variables.scss' },
+	}),
     checker({ vueTsc: { tsconfigPath: 'tsconfig.browser.json' } }),
     NodeCGPlugin( {
       srcDir: "./src",
@@ -22,10 +27,10 @@ export default defineConfig({
     } ),
   ],
   resolve: {
-    
+
     alias: {
-      "@licenseathon-vue": `${__dirname}/src/`,
+      "@src": `${__dirname}/src/`,
     }
   },
-  
+
 });

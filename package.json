@@ -29,211 +29,10 @@
     "compatibleRange": "^2.1.11",
     "dashboardPanels": [
       {
-        "name": "general",
-        "title": "General",
-        "width": 2,
-        "file": "general.html"
-      },
-      {
         "name": "timer",
         "title": "Timer",
         "width": 2,
         "file": "timer.html"
-      },
-      {
-        "name": "match-1",
-        "title": "Match 1",
-        "width": 4,
-        "file": "match1.html",
-        "headerColor": "#D32F2F"
-      },
-      {
-        "name": "match-2",
-        "title": "Match 2",
-        "width": 4,
-        "file": "match2.html",
-        "headerColor": "#1976D2"
-      },
-      {
-        "name": "game",
-        "title": "Game",
-        "width": 2,
-        "file": "game.html"
-      },
-      {
-        "name": "twitch",
-        "title": "Twitch",
-        "width": 2,
-        "file": "twitch.html",
-        "headerColor": "#9146FF"
-      },
-      {
-        "name": "rainwave",
-        "title": "Rainwave",
-        "width": 2,
-        "file": "rainwave.html",
-        "headerColor": "#F7941E"
-      },
-      {
-        "name": "achievements",
-        "title": "Achievements",
-        "width": 2,
-        "file": "achievements.html",
-        "headerColor": "#39960c"
-      },
-      {
-        "name": "stream-cropping",
-        "title": "Stream Cropping",
-        "file": "cropping.html",
-        "fullbleed": true
-      },
-      {
-        "name": "boxart-select-dialog",
-        "title": "Select Boxart",
-        "file": "boxart.html",
-        "width": 7,
-        "dialog": true
-      },
-      {
-        "name": "event-logo-select-dialog",
-        "title": "Select Event Logo",
-        "file": "event-logo.html",
-        "width": 7,
-        "dialog": true
-      },
-      {
-        "name": "load-challonge-dialog",
-        "title": "Import Challonge match",
-        "file": "challonge.html",
-        "width": 5,
-        "dialog": true
-      },
-      {
-        "name": "player-card-preview-dialog",
-        "title": "Player Card Preview",
-        "file": "playercardpreview.html",
-        "width": 5,
-        "dialog": true
-      }
-    ],
-    "graphics": [
-      {
-        "file": "waitscreen.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "jolly/2player.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt16/2player.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt16/2player_tate.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt16/4player.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt16/coming_up.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt17/2player.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt17/4player.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt17/2player_tate.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt18/2player.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "mt18/coming_up.html",
-        "width": 1920,
-        "height": 1080
-      }
-    ],
-    "soundCues": [
-      {
-        "name": "Player Dead",
-        "assignable": false,
-        "defaultFile": "sound/player_dead.mp3",
-        "defaultVolume": 10
-      },
-      {
-        "name": "Achievement",
-        "assignable": false,
-        "defaultFile": "sound/xbox_achievement.mp3",
-        "defaultVolume": 10
-      }
-    ],
-    "assetCategories": [
-      {
-        "name": "boxarts",
-        "title": "Game Boxarts",
-        "allowedTypes": [
-          "jpg",
-          "jpeg",
-          "gif",
-          "png",
-          "webp"
-        ]
-      },
-      {
-        "name": "popovers",
-        "title": "Player Popovers",
-        "allowedTypes": [
-          "jpg",
-          "jpeg",
-          "gif",
-          "png",
-          "webp"
-        ]
-      },
-      {
-        "name": "eventLogos",
-        "title": "Event Logos",
-        "allowedTypes": [
-          "jpg",
-          "jpeg",
-          "gif",
-          "png",
-          "webp"
-        ]
-      },
-      {
-        "name": "droneShots",
-        "title": "Drone Shots",
-        "allowedTypes": [
-          "webm",
-          "mp4"
-        ]
-      }
-    ],
-    "mount": [
-      {
-        "directory": "dist",
-        "endpoint": "dist"
       }
     ]
   },
@@ -246,7 +45,9 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "fitty": "^2.3.6",
-    "module-alias": "^2.2.2"
+    "lodash": "^4.17.21",
+    "module-alias": "^2.2.2",
+    "vuetify": "^3.4.0"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
@@ -273,6 +74,7 @@
     "vite": "^4.3.9",
     "vite-plugin-checker": "^0.6.1",
     "vite-plugin-nodecg": "^2.0.0-rc3",
+    "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.2.45",
     "vue-eslint-parser": "^9.1.0",
     "vue-inline-svg": "^3.1.2",

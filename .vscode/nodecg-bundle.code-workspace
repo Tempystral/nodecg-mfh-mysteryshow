@@ -28,6 +28,17 @@
 			"**/*.code-search": true
 		},
 		"terminal.integrated.cwd": "",
-		"typescript.tsdk": "node_modules/typescript/lib"
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"editor.codeActionsOnSave": {
+			"source.fixAll": "explicit"
+		},
+	},
+	"extensions": {
+		"recommendations": [
+			"esbenp.prettier-vscode",
+			"vue.vscode-typescript-vue-plugin",
+			"vue.volar",
+			"dbaeumer.vscode-eslint"
+		]
 	}
 }
