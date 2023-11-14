@@ -5,6 +5,10 @@
 			"path": ".."
 		},
 		{
+			"name": "bundle-old",
+			"path": "../old"
+		},
+		{
 			"name": "Config",
 			"path": "../../../cfg"
 		}
