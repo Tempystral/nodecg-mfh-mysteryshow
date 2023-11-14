@@ -17,7 +17,7 @@ export default defineConfig({
     vue(),
 	vuetify({
     	autoImport: true,
-        styles: { configFile: './src/scss/vuetify-variables.scss' },
+        styles: { configFile: './src/assets/scss/vuetify-variables.scss' },
 	}),
     checker({ vueTsc: { tsconfigPath: 'tsconfig.browser.json' } }),
     NodeCGPlugin( {
