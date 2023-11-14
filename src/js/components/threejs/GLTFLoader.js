@@ -47,7 +47,7 @@ import {
   PropertyBinding,
   Quaternion,
   QuaternionKeyframeTrack,
-  RGBFormat,
+  RGBAFormat,
   RepeatWrapping,
   Skeleton,
   SkinnedMesh,
@@ -62,7 +62,7 @@ import {
   Vector3,
   VectorKeyframeTrack,
   sRGBEncoding,
-} from "three/build/three.module.js";
+} from "three";
 
 class GLTFLoader extends Loader {
   constructor(manager) {
@@ -2815,7 +2815,7 @@ class GLTFParser {
       // See: https://github.com/mrdoob/three.js/issues/17706
       materialParams.depthWrite = false;
     } else {
-      materialParams.format = RGBFormat;
+      materialParams.format = RGBAFormat;
       materialParams.transparent = false;
 
       if (alphaMode === ALPHA_MODES.MASK) {

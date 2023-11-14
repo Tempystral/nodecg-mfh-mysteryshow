@@ -7,14 +7,14 @@ import {
   Mesh,
   PerspectiveCamera,
   Plane,
-  RGBFormat,
+  RGBAFormat,
   ShaderMaterial,
   UniformsLib,
   UniformsUtils,
   Vector3,
   Vector4,
   WebGLRenderTarget,
-} from "three/build/three.module.js";
+} from "three";
 
 /**
  * Work based on :
@@ -76,7 +76,7 @@ class Water extends Mesh {
     const parameters = {
       minFilter: LinearFilter,
       magFilter: LinearFilter,
-      format: RGBFormat,
+      format: RGBAFormat,
     };
 
     const renderTarget = new WebGLRenderTarget(

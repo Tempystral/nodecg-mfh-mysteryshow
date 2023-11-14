@@ -1,4 +1,4 @@
-var clone = require("clone");
+import clone from "clone";
 
 export function bindReplicant(
   vueName,

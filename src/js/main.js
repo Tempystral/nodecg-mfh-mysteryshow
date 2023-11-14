@@ -1,13 +1,14 @@
 // src/main.js
-
 const _ = require('lodash');
-import Vue from 'vue';
+import { createApp } from "vue";
 import vuetify from './vuetify'; // path to vuetify export
-
 import VueTilt from 'vue-tilt.js';
-Vue.use(VueTilt);
 
 const requireComponent = require.context('./', true, /\.vue$/i);
+
+const vueApp = createApp()
+	.use(VueTilt)
+	.use(vuetify);
 
 requireComponent.keys().forEach((fileName) => {
   // Get component config
@@ -25,9 +26,8 @@ requireComponent.keys().forEach((fileName) => {
   );
 
   // Register component globally
-  Vue.component(componentName, componentConfig.default || componentConfig);
+  vueApp.component(componentName, componentConfig.default || componentConfig);
 });
 
-new Vue({
-  vuetify,
-}).$mount('#app');
+
+vueApp.mount('#app');

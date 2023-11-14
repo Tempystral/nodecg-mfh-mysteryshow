@@ -1,9 +1,6 @@
 // src/plugins/vuetify.js
 
-import Vue from "vue";
-import Vuetify from "vuetify";
-
-Vue.use(Vuetify);
+import { createVuetify } from "vuetify"
 
 const opts = {
   theme: {
@@ -16,4 +13,6 @@ const opts = {
   },
 };
 
-export default new Vuetify(opts);
+const vuetify = createVuetify(opts)
+
+export default vuetify;
