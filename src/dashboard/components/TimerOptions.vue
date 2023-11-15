@@ -4,16 +4,16 @@
       <v-container>
         <v-text-field
           class="timer"
-          :class="{ active: timer.state == 'playing' }"
-		  variant="underlined"
+          :class="{ active: timer?.data?.state == 'playing' }"
+          variant="underlined"
           v-model="timerText"
-          :hint="timer.state != 'playing' ? 'Press enter to apply' : ''"
+          :hint="timer?.data?.state != 'playing' ? 'Press enter to apply' : ''"
           @keydown.enter="applyTime"
-          :readonly="timer.state == 'playing'">
+          :readonly="timer?.data?.state == 'playing'">
         </v-text-field>
 
         <div class="text-grey text-center">
-          <span v-if="timer.state == 'paused'">
+          <span v-if="timer?.data?.state == 'paused'">
             Press <v-icon color="grey">mdi-play</v-icon> to continue {{ pausedTimerText }}
           </span>
           <span v-else>&nbsp;</span>
@@ -21,19 +21,19 @@
 
         <v-row dense>
           <v-col>
-            <v-btn color="green" @click="play" block :disabled="timer.state == 'playing'">
+            <v-btn color="green" @click="play" block :disabled="timer?.data?.state == 'playing'">
               <v-icon dark size="x-large"> mdi-play </v-icon>
             </v-btn>
           </v-col>
 
           <v-col>
-            <v-btn color="orange" @click="pause" block :disabled="timer.state != 'playing'">
+            <v-btn color="orange" @click="pause" block :disabled="timer?.data?.state != 'playing'">
               <v-icon dark size="x-large"> mdi-pause </v-icon>
             </v-btn>
           </v-col>
 
           <v-col>
-            <v-btn color="red" @click="reset" block :disabled="timer.ms == 0">
+            <v-btn color="red" @click="reset" block :disabled="timer?.data?.ms == 0">
               <v-icon dark size="x-large"> mdi-undo </v-icon>
             </v-btn>
           </v-col>
@@ -44,13 +44,13 @@
               <v-switch v-model="stopTimerWhenDone" :hide-details="true" color="primary" />
               <span>Halt after</span>
               <v-select
-                v-model="stopTimerWhenDoneCount"
+                v-model="stopTimerWhenDoneCount!.data"
                 :items="playerCounts"
                 :density="'compact'"
                 :hide-details="true"
                 :variant="'underlined'"
                 class="d-inline-block" />
-              <span>{{ stopTimerWhenDoneCount == 1 ? 'finish' : 'finishes' }}</span>
+              <span>{{ stopTimerWhenDoneCount?.data == 1 ? 'finish' : 'finishes' }}</span>
             </div>
           </v-col>
         </v-row>
@@ -61,80 +61,55 @@
 
 <style lang="scss">
 @import '/node_modules/vuetify/';
-@import '../../assets/scss/style.scss';
+@import '@src/assets/scss/style.scss';
 
 .timer.v-input {
   padding-top: 0;
   margin-top: 0;
 
   input {
-	text-align: center;
-    font-size: 3.80em;
+    text-align: center;
+    font-size: 3.8em;
     font-weight: 700;
     max-height: none;
     padding: 0;
   }
 }
-
-.v-switch .v-label {
-  pointer-events: none;
-}
 </style>
 
-<script>
-import { bindReplicant, formatTimer } from '@src/extension/util/util';
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import { useReplicant } from 'nodecg-vue-composable';
+import { bindReplicant, formatTimer } from '../../extension/util/util';
+import { type DashboardTimer } from '../../types/schemas';
 
-export default {
-  methods: {
-    play() {
-      nodecg.sendMessage('timerPlay');
-    },
+const timer = useReplicant<DashboardTimer>('timer', undefined, { defaultValue: { ms: 0, pausedMs: 0, state: 'stopped' } });
+const newTime = ref<string>('');
+const playerCounts = ref([1, 2, 3, 4]);
+const stopTimerWhenDone = useReplicant('stopTimerWhenDone', undefined, { defaultValue: true });
+const stopTimerWhenDoneCount = useReplicant('stopTimerWhenDoneCount', undefined, {
+  defaultValue: 2,
+});
 
-    pause() {
-      nodecg.sendMessage('timerPause');
-    },
+const timerText = computed(() => formatTimer(timer?.data?.ms, false));
+const pausedTimerText = computed(() => formatTimer(timer?.data?.pausedMs, false));
 
-    reset() {
-      nodecg.sendMessage('timerReset');
-    },
+function play() {
+  nodecg.sendMessage('timerPlay');
+}
 
-    applyTime(event) {
-      if (this.newTime) {
-        nodecg.sendMessage('timerSet', this.newTime);
-      }
-      event.target.blur();
-    },
-  },
+function pause() {
+  nodecg.sendMessage('timerPause');
+}
 
-  created() {
-    bindReplicant.call(this, 'timer');
-    bindReplicant.call(this, 'stopTimerWhenDone');
-    bindReplicant.call(this, 'stopTimerWhenDoneCount', 'stopTimerWhenDoneCount', 0);
-  },
+function reset() {
+  nodecg.sendMessage('timerReset');
+}
 
-  computed: {
-    timerText: {
-      get() {
-        return formatTimer(this.timer.ms, false);
-      },
-      set(newValue) {
-        this.newTime = newValue;
-      },
-    },
-
-    pausedTimerText() {
-      return formatTimer(this.timer.pausedMs, false);
-    },
-  },
-
-  data() {
-    return {
-      timer: 0,
-      newTime: null,
-      playerCounts: [1, 2, 3, 4],
-      stopTimerWhenDone: true,
-      stopTimerWhenDoneCount: 2,
-    };
-  },
-};
+function applyTime(event: KeyboardEvent) {
+  if (newTime.value) {
+    nodecg.sendMessage('timerSet', newTime.value);
+  }
+  (event.target as HTMLInputElement).blur();
+}
 </script>

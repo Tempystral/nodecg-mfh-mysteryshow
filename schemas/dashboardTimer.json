@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ms": {
+      "type": "number",
+	  "minimum": 0,
+	  "default": 0
+    },
+	"pausedMs": {
+		"type": "number",
+		"minimum": 0,
+		"default": 0
+	  },
+	"state": {
+		"type": "string",
+		"enum": ["paused", "stopped", "playing"],
+		"default": "stopped"
+	}
+  },
+  "required": [
+    "ms", "pausedMs", "state"
+  ]
+}
