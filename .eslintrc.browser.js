@@ -21,6 +21,7 @@ module.exports = {
   ],
   extends: [
     'plugin:vue/essential',
+	'plugin:vuetify/base',
     'airbnb-base',
     'airbnb-typescript/base',
     'eslint:recommended',
@@ -57,6 +58,7 @@ module.exports = {
     "prefer-const": "error",
     "no-mixed-spaces-and-tabs": "off",
     "no-unused-vars": "off",
-    "no-multiple-empty-lines": "off"
+    "no-multiple-empty-lines": "off",
+	'no-tabs': "off",
   }
 };

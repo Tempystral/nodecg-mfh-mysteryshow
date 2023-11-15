@@ -1,6 +1,7 @@
-$material-dark: (
-  "background": transparent,
-);
+@use "vuetify/settings" with (
+	$application-background: transparent,
+	$container-padding-x: 12px,
 
-$grid-gutter: 12px;
-$container-padding-x: 12px;
+	$input-font-size: 16px,
+	$button-colored-disabled: false,
+);
