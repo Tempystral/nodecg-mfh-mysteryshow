@@ -1,4 +1,3 @@
-
 // nodecg().log.info('Extension code working!');
 
 // // Access/set a replicant (also see ./util/replicants).
@@ -8,4 +7,4 @@
 // const config = nodecg().bundleConfig as Configschema;
 
 // // Accessing normal types.
-// const exampleType: ExampleType = { exampleProperty: 'exampleString' };
+const exampleType = { exampleProperty: 'exampleString' };
