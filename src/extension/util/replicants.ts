@@ -7,8 +7,6 @@ import { get as nodecg } from './nodecg';
  * and to make sure they have any correct settings on startup.
  */
 
-// YOU CAN REMOVE THIS RULE WHEN YOU GET MULTIPLE REPLICANTS!
-// eslint-disable-next-line import/prefer-default-export
 export const timerRep = nodecg().Replicant('timer', { defaultValue: { ms: 0, pausedMs: 0, state: 'stopped' } });
 export const stopTimerWhenDoneRep = nodecg().Replicant('stopTimerWhenDone', {
   defaultValue: true,

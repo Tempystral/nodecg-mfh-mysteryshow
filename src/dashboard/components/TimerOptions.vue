@@ -45,7 +45,7 @@
               <span>Halt after</span>
               <v-select
                 v-model="stopTimerWhenDoneCount!.data"
-                :items="playerCounts"
+                :items="numPlayers"
                 :density="'compact'"
                 :hide-details="true"
                 :variant="'underlined'"
@@ -78,20 +78,21 @@
 </style>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { useReplicant } from 'nodecg-vue-composable';
-import { bindReplicant, formatTimer } from '../../extension/util/util';
-import { type DashboardTimer } from '../../types/schemas';
+import { stopTimerWhenDone, stopTimerWhenDoneCount, timer } from '@nodecg-mfh-mysterytournament/ts/replicants';
+import { computed, ref } from 'vue';
+import { formatTimer } from '@nodecg-mfh-mysterytournament/extension/util/util';
 
-const timer = useReplicant<DashboardTimer>('timer', undefined, { defaultValue: { ms: 0, pausedMs: 0, state: 'stopped' } });
 const newTime = ref<string>('');
-const playerCounts = ref([1, 2, 3, 4]);
-const stopTimerWhenDone = useReplicant('stopTimerWhenDone', undefined, { defaultValue: true });
-const stopTimerWhenDoneCount = useReplicant('stopTimerWhenDoneCount', undefined, {
-  defaultValue: 2,
-});
+const numPlayers = ref([1, 2, 3, 4]);
 
-const timerText = computed(() => formatTimer(timer?.data?.ms, false));
+const timerText = computed({
+  get() {
+    return formatTimer(timer?.data?.ms, false);
+  },
+  set(newValue) {
+    newTime.value = newValue;
+  },
+});
 const pausedTimerText = computed(() => formatTimer(timer?.data?.pausedMs, false));
 
 function play() {

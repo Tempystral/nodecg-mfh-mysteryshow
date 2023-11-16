@@ -30,6 +30,7 @@ export default defineConfig({
 
     alias: {
       "@src": `${__dirname}/src/`,
+	  "@nodecg-mfh-mysterytournament": `${__dirname}/src/`
     }
   },
 
