@@ -21,17 +21,22 @@
 			"**/CVS": true,
 			"**/.DS_Store": true,
 			"**/Thumbs.db": true,
+			// These redirect to the root-level configs, no contents
+			"**/tsconfig.json": true,
+			"**/.eslintrc.js": true,
 		},
 		"search.exclude": {
 			"**/node_modules": true,
 			"**/bower_components": true,
 			"**/*.code-search": true
 		},
-		"terminal.integrated.cwd": "",
 		"typescript.tsdk": "node_modules/typescript/lib",
+		"emmet.includeLanguages": { "vue": "html" },
 		"editor.codeActionsOnSave": {
 			"source.fixAll": "explicit"
 		},
+		"editor.tabSize": 2,
+		"editor.detectIndentation": false,
 	},
 	"extensions": {
 		"recommendations": [

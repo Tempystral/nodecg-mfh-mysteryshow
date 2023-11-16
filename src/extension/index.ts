@@ -5,10 +5,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('module-alias').addAlias('@nodecg-mfh-mysterytournament', require('path').join(__dirname, '.'));
 
-import type { NodeCG } from 'nodecg-types/types/server';
+import type NodeCG from '@nodecg/types';
 import { set } from './util/nodecg';
 
-export = (nodecg: NodeCG): void => {
+export = (nodecg: NodeCG.ServerAPI): void => {
   /**
    * Because of how `import`s work, it helps to use `require`s to force
    * things to be loaded *after* the NodeCG context is set.

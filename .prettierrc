@@ -4,3 +4,4 @@ semi: true
 tabWidth: 2
 bracketSameLine: true
 printWidth: 100
+singleAttributePerLine: true

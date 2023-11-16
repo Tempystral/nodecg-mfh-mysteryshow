@@ -112,6 +112,7 @@
   },
   "include": [
     "src/extension/**/*.ts",
-    "src/types/**/*.d.ts"
+    "src/types/**/*.d.ts",
+	"node_modules/@nodecg/types/server",
   ],
 }
