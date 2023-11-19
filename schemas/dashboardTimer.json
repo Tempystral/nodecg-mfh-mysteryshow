@@ -5,21 +5,19 @@
   "properties": {
     "ms": {
       "type": "number",
-	  "minimum": 0,
-	  "default": 0
+      "minimum": 0,
+      "default": 0
     },
-	"pausedMs": {
-		"type": "number",
-		"minimum": 0,
-		"default": 0
-	  },
-	"state": {
-		"type": "string",
-		"enum": ["paused", "stopped", "playing"],
-		"default": "stopped"
-	}
+    "pausedMs": {
+      "type": "number",
+      "minimum": 0,
+      "default": 0
+    },
+    "state": {
+      "type": "string",
+      "enum": ["paused", "stopped", "playing"],
+      "default": "stopped"
+    }
   },
-  "required": [
-    "ms", "pausedMs", "state"
-  ]
+  "required": ["ms", "pausedMs", "state"]
 }

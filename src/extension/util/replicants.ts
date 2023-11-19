@@ -2,7 +2,7 @@
 
 import { get as nodecg } from './nodecg';
 
-const BUNDLE_NAMESPACE = "nodecg-mfh-mysteryshow";
+const BUNDLE_NAMESPACE = 'nodecg-mfh-mysteryshow';
 
 /**
  * This is where you can declare all your replicant to import easily into other files,
@@ -20,7 +20,7 @@ export const stopTimerWhenDoneCountRep = nodecg().Replicant(
   BUNDLE_NAMESPACE,
   {
     defaultValue: 2,
-  }
+  },
 );
 
 // const waitScreenState = useReplicant('waitScreenState', undefined, { defaultValue: 0 });
