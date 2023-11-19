@@ -78,9 +78,21 @@
 </style>
 
 <script setup lang="ts">
-import { stopTimerWhenDone, stopTimerWhenDoneCount, timer } from '@nodecg-mfh-mysterytournament/ts/replicants';
 import { computed, ref } from 'vue';
 import { formatTimer } from '@nodecg-mfh-mysterytournament/extension/util/util';
+import { useReplicant } from 'nodecg-vue-composable';
+import { DashboardTimer } from '@nodecg-mfh-mysterytournament/types';
+import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/ts/constants';
+
+const timer = useReplicant<DashboardTimer>('timer', BUNDLE_NAMESPACE, {
+  defaultValue: { ms: 0, pausedMs: 0, state: 'stopped' },
+});
+const stopTimerWhenDone = useReplicant<boolean>('stopTimerWhenDone', BUNDLE_NAMESPACE, {
+  defaultValue: true,
+});
+const stopTimerWhenDoneCount = useReplicant<number>('stopTimerWhenDoneCount', BUNDLE_NAMESPACE, {
+  defaultValue: 2,
+});
 
 const newTime = ref<string>('');
 const numPlayers = ref([1, 2, 3, 4]);
