@@ -10,7 +10,7 @@
 		},
 		{
 			"name": "Config",
-			"path": "../../../cfg"
+			"path": "../../../nodecg/cfg"
 		}
 	],
 	"settings": {
