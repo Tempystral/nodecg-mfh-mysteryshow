@@ -1,11 +1,10 @@
 import NodeCG from "@nodecg/types";
-import clone from "clone";
-import _ from "lodash";
-import { get } from "./nodecg";
 
-/* export function bindReplicant(vueName:string, replicantName:string = vueName, debounceWait:number = 1000) {
-  const replicant = get().Replicant(replicantName, {
-    defaultValue: vueName,
+let nodecg: NodeCG.ClientAPI;
+
+/* export function bindReplicant<T>(vueName:Ref<T | undefined>, replicantName:string, debounceWait:number = 1000) {
+  const replicant = nodecg.Replicant<T | undefined>(replicantName, {
+    defaultValue: vueName.value,
   });
   let preventSend = false;
 
@@ -13,28 +12,29 @@ import { get } from "./nodecg";
     replicant.value = newValue;
   }, debounceWait);
 
-  let readValue = (newValue) => {
-    vueName = clone(newValue);
+  let readValue = (newValue: T | undefined) => {
+    vueName.value = clone(newValue);
 
     preventSend = true;
-    $nextTick(() => {
+    nextTick(() => {
       preventSend = false;
     });
   };
 
-  NodeCG.waitForReplicants(replicant).then(() => {
+  NodeCGAPIClient.waitForReplicants(replicant).then(() => {
     readValue(replicant.value);
 
-    replicant.on("change", (newValue) => {
+    replicant.on("change", (newValue: T | undefined) => {
       readValue(newValue);
     });
 
-    this.$watch(vueName, (newValue) => {
+    watch(vueName, (newValue) => {
       if (!preventSend) {
         sendValue(newValue);
       }
     });
   });
+  return replicant;
 } */
 
 export function formatTimer(time?: number, includeMs: boolean = true, alwaysIncludeHours: boolean = true) {

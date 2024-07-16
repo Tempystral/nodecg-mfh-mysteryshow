@@ -1,21 +1,22 @@
 import { Timer } from 'timer-node';
-import { assert } from 'console';
 import * as ctx from './util/nodecg';
+import { stopTimerWhenDoneCountRep, stopTimerWhenDoneRep, timerRep } from './util/replicants';
+import { DashboardTimer } from '@nodecg-mfh-mysterytournament/types';
 
 const nodecg = ctx.get();
 
-const timerRep = nodecg.Replicant('timer');
+/* const timerRep = nodecg.Replicant('timer');
 const stopTimerWhenDoneRep = nodecg.Replicant('stopTimerWhenDone', {
   defaultValue: true,
 });
 const stopTimerWhenDoneCountRep = nodecg.Replicant('stopTimerWhenDoneCount', {
   defaultValue: 2,
-});
+}); */
 
 let timer = new Timer();
-let state = 'stopped';
+let state: 'playing' | 'paused' | 'stopped' = 'stopped';
 
-const timerObj = {
+const timerObj: DashboardTimer = {
   ms: 0,
   pausedMs: 0,
   state: 'stopped',
@@ -23,7 +24,6 @@ const timerObj = {
 
 function updateRep() {
   timerObj.state = state;
-
   timerRep.value = timerObj;
 }
 
@@ -58,11 +58,11 @@ function reset() {
 }
 nodecg.listenFor('timerReset', reset);
 
-function set(input:string) {
+function set(input: string) {
   const parts = input.split(':');
   const parts2 = parts.at(-1)?.split('.');
 
-  const ms = (parts2?.length ?? 0) > 1 ? (parts2?.[1] ?? '0') : '0';
+  const ms = (parts2?.length ?? 0) > 1 ? parts2?.[1] ?? '0' : '0';
   const s = parts2?.[0] ?? '0';
   parts.pop();
 
@@ -92,12 +92,10 @@ function set(input:string) {
 }
 nodecg.listenFor('timerSet', set);
 
-const raceStates:any = [];
+const raceStates: any = [];
 
 for (let i = 0; i < 4; i++) {
-  raceStates.push(
-    nodecg.Replicant(`player${i}raceState`, { defaultValue: 'none' }),
-  );
+  raceStates.push(nodecg.Replicant(`player${i}raceState`, { defaultValue: 'none' }));
 }
 
 function playerRaceStateChanged(data) {
