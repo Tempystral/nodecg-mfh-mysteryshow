@@ -46,6 +46,12 @@
         "title": "Game Options",
         "file": "gameOptions.html",
         "width": 2
+      },
+      {
+        "name": "twitch-options",
+        "title": "Twitch Options",
+        "file": "twitchOptions.html",
+        "width": 2
       }
     ],
     "assetCategories": [

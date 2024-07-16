@@ -8,4 +8,6 @@ export * from './gameOptions';
 // @ts-ignore
 export * from './rainwaveState';
 // @ts-ignore
+export * from './twitchGameData';
+// @ts-ignore
 export * from './waitScreenState';
