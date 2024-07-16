@@ -39,7 +39,13 @@
         "title": "Select Boxart",
         "file": "boxart.html",
         "width": 7,
-        "dialog": false
+        "dialog": true
+      },
+      {
+        "name": "game-options",
+        "title": "Game Options",
+        "file": "gameOptions.html",
+        "width": 4
       }
     ],
     "assetCategories": [
