@@ -2,7 +2,6 @@
 import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/ts/constants';
 import { GameOptions } from '@nodecg-mfh-mysterytournament/types';
 import NodeCG from '@nodecg/types';
-import assert from 'assert';
 import { useReplicant } from 'nodecg-vue-composable';
 
 const gameModel = useReplicant<GameOptions>('game', BUNDLE_NAMESPACE);
@@ -39,6 +38,15 @@ function setBoxart(val: string) {
               v-model="gameModel.data.game"
               @update:model-value="gameModel.save"
               label="Game name" />
+            <v-text-field
+              v-model="gameModel.data.platform"
+              @update:model-value="gameModel.save"
+              label="Platform" />
+            <v-text-field
+              v-model="gameModel.data.goal"
+              @update:model-value="gameModel.save"
+              label="Goal" />
+
             <v-card class="mb-4" variant="tonal" v-if="boxartModel">
               <v-card-title>Boxart</v-card-title>
               <v-card-text>
@@ -63,14 +71,6 @@ function setBoxart(val: string) {
                 <v-btn text="Upload" color="primary" @click="uploadBoxart" />
               </v-card-actions>
             </v-card>
-
-            <div class="d-flex"></div>
-
-            <v-text-field v-model="gameModel.data.goal" label="Goal" />
-
-            <v-text-field v-model="gameModel.data.platform" label="Platform" />
-
-            <!-- <v-text-field v-model="submitter" label="Submitter" /> -->
           </v-col>
         </v-row>
       </v-container>
