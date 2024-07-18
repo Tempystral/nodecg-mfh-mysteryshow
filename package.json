@@ -98,6 +98,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@twurple/api": "^7.1.0",
+    "@twurple/auth": "^7.1.0",
     "fitty": "^2.3.6",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",

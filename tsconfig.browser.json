@@ -114,8 +114,7 @@
     "src/graphics/**/*.vue",
     "src/ts/**/*.ts",
     "src/types/**/*.d.ts",
-    "node_modules/@nodecg/types/augment-window.d.ts",
-    "node_modules/nodecg-types/types/browser.d.ts",
+    "node_modules/@nodecg/types/**/*.d.ts",
     "node_modules/@fortawesome/**/*/index.d.ts"
   ],
 }
