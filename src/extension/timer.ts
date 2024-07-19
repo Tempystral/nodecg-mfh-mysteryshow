@@ -1,17 +1,10 @@
 import { Timer } from 'timer-node';
 import * as ctx from './util/nodecg';
-import { stopTimerWhenDoneCountRep, stopTimerWhenDoneRep, timerRep } from './util/replicants';
+import { stopTimerConditionRep, stopTimerWhenDoneRep, timerRep } from './util/replicants';
 import { DashboardTimer } from '@nodecg-mfh-mysterytournament/types';
+import { BUNDLE_NAMESPACE } from './constants';
 
 const nodecg = ctx.get();
-
-/* const timerRep = nodecg.Replicant('timer');
-const stopTimerWhenDoneRep = nodecg.Replicant('stopTimerWhenDone', {
-  defaultValue: true,
-});
-const stopTimerWhenDoneCountRep = nodecg.Replicant('stopTimerWhenDoneCount', {
-  defaultValue: 2,
-}); */
 
 let timer = new Timer();
 let state: 'playing' | 'paused' | 'stopped' = 'stopped';
@@ -39,13 +32,13 @@ function play() {
 
   state = 'playing';
 }
-nodecg.listenFor('timerPlay', play);
+nodecg.listenFor('timerPlay', BUNDLE_NAMESPACE, play);
 
 function pause() {
   state = 'paused';
   updateRep();
 }
-nodecg.listenFor('timerPause', pause);
+nodecg.listenFor('timerPause', BUNDLE_NAMESPACE, pause);
 
 function reset() {
   timer = new Timer();
@@ -56,7 +49,7 @@ function reset() {
 
   updateRep();
 }
-nodecg.listenFor('timerReset', reset);
+nodecg.listenFor('timerReset', BUNDLE_NAMESPACE, reset);
 
 function set(input: string) {
   const parts = input.split(':');
@@ -90,7 +83,7 @@ function set(input: string) {
 
   updateRep();
 }
-nodecg.listenFor('timerSet', set);
+nodecg.listenFor('timerSet', BUNDLE_NAMESPACE, set);
 
 const raceStates: any = [];
 
@@ -112,9 +105,9 @@ function playerRaceStateChanged(data) {
       }
     }
 
-    if (state === 'playing' && donePlayers >= stopTimerWhenDoneCountRep.value) {
+    /* if (state === 'playing' && donePlayers >= stopTimerConditionRep.value) {
       pause();
-    }
+    } */
   }
 
   // check for place (should maybe be part of its own extension script)
@@ -133,7 +126,7 @@ function playerRaceStateChanged(data) {
 
   raceStates[player].value = newState;
 }
-nodecg.listenFor('playerRaceStateChanged', playerRaceStateChanged);
+nodecg.listenFor('playerRaceStateChanged', BUNDLE_NAMESPACE, playerRaceStateChanged);
 
 function tick() {
   if (state === 'playing' || state === 'paused') {

@@ -1,3 +1,64 @@
+
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue';
+import { formatTimer, parseTime } from '@nodecg-mfh-mysterytournament/extension/util/time';
+import { useReplicant } from 'nodecg-vue-composable';
+import { DashboardTimer } from '@nodecg-mfh-mysterytournament/types';
+import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/extension/constants';
+
+const timer = useReplicant<DashboardTimer>('timer', BUNDLE_NAMESPACE);
+const stopTimerWhenDone = useReplicant<boolean>('stopTimerWhenDone', BUNDLE_NAMESPACE);
+const stopTimerCondition = useReplicant<number>('stopTimerCondition', BUNDLE_NAMESPACE);
+
+const newTime = ref<string>('');
+const numPlayers = ref([1, 2, 3, 4]);
+
+const stopTime = ref<string>('01:00:00');
+const stopTimeValid = ref(true);
+
+watch(stopTime, time => {
+  const timeSec = parseTime(time);
+  stopTimeValid.value = Boolean(timeSec)
+  if (stopTimerWhenDone?.data && stopTimeValid.value && timeSec) {
+    stopTimerCondition!.data = timeSec;
+    stopTimerCondition?.save();
+  } 
+});
+
+const timerText = computed({
+  get() {
+    return formatTimer(timer?.data?.ms, false);
+  },
+  set(newValue) {
+    newTime.value = newValue;
+  },
+});
+const pausedTimerText = computed(() => formatTimer(timer?.data?.pausedMs, false));
+
+function play() {
+  nodecg.sendMessage('timerPlay', BUNDLE_NAMESPACE);
+}
+
+function pause() {
+  nodecg.sendMessage('timerPause', BUNDLE_NAMESPACE);
+}
+
+function resume() {
+  nodecg.sendMessage("timerResume", BUNDLE_NAMESPACE);
+}
+
+function reset() {
+  nodecg.sendMessage('timerReset', BUNDLE_NAMESPACE);
+}
+
+function applyTime(event: KeyboardEvent) {
+  if (newTime.value) {
+    nodecg.sendMessage('timerSet', newTime.value);
+  }
+  (event.target as HTMLInputElement).blur();
+}
+</script>
+
 <template>
   <v-app>
     <v-main>
@@ -25,6 +86,11 @@
               <v-icon dark size="x-large"> mdi-play </v-icon>
             </v-btn>
           </v-col>
+          <v-col>
+            <v-btn color="blue" @click="resume" block >
+              <v-icon dark size="x-large"> mdi-play-pause </v-icon>
+            </v-btn>
+          </v-col>
 
           <v-col>
             <v-btn color="orange" @click="pause" block :disabled="timer?.data?.state != 'playing'">
@@ -39,19 +105,18 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col>
-            <div class="d-inline-flex align-center ga-2">
-              <v-switch v-model="stopTimerWhenDone" :hide-details="true" color="primary" />
+          <v-col class="mb-3" >
+            <div class="d-flex justify-center align-center ga-2">
+              <v-switch v-model="stopTimerWhenDone!.data" @update:model-value="stopTimerWhenDone?.save" :hide-details="true" color="primary" class="flex-0-1"  />
               <span>Halt after</span>
-              <v-select
-                v-model="stopTimerWhenDoneCount!.data"
-                :items="numPlayers"
+              <v-text-field
+                v-model="stopTime"
                 :density="'compact'"
-                :hide-details="true"
+                :hide-details="stopTimeValid"
                 :variant="'underlined'"
-                class="d-inline-block" />
-              <span>{{ stopTimerWhenDoneCount?.data == 1 ? 'finish' : 'finishes' }}</span>
-            </div>
+                class="d-inline-block"
+                :error-messages="stopTimeValid ? null : 'Format not valid'" />
+              </div>
           </v-col>
         </v-row>
       </v-container>
@@ -76,53 +141,3 @@
   }
 }
 </style>
-
-<script setup lang="ts">
-import { computed, ref } from 'vue';
-import { formatTimer } from '@nodecg-mfh-mysterytournament/extension/util/util';
-import { useReplicant } from 'nodecg-vue-composable';
-import { DashboardTimer } from '@nodecg-mfh-mysterytournament/types';
-import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/ts/constants';
-
-const timer = useReplicant<DashboardTimer>('timer', BUNDLE_NAMESPACE, {
-  defaultValue: { ms: 0, pausedMs: 0, state: 'stopped' },
-});
-const stopTimerWhenDone = useReplicant<boolean>('stopTimerWhenDone', BUNDLE_NAMESPACE, {
-  defaultValue: true,
-});
-const stopTimerWhenDoneCount = useReplicant<number>('stopTimerWhenDoneCount', BUNDLE_NAMESPACE, {
-  defaultValue: 2,
-});
-
-const newTime = ref<string>('');
-const numPlayers = ref([1, 2, 3, 4]);
-
-const timerText = computed({
-  get() {
-    return formatTimer(timer?.data?.ms, false);
-  },
-  set(newValue) {
-    newTime.value = newValue;
-  },
-});
-const pausedTimerText = computed(() => formatTimer(timer?.data?.pausedMs, false));
-
-function play() {
-  nodecg.sendMessage('timerPlay');
-}
-
-function pause() {
-  nodecg.sendMessage('timerPause');
-}
-
-function reset() {
-  nodecg.sendMessage('timerReset');
-}
-
-function applyTime(event: KeyboardEvent) {
-  if (newTime.value) {
-    nodecg.sendMessage('timerSet', newTime.value);
-  }
-  (event.target as HTMLInputElement).blur();
-}
-</script>

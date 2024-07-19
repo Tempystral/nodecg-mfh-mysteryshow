@@ -3,8 +3,8 @@
 import { DashboardTimer, GameOptions } from '@nodecg-mfh-mysterytournament/types';
 import * as ctx from './nodecg';
 import NodeCG from '@nodecg/types';
+import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/constants';
 
-const BUNDLE_NAMESPACE = 'nodecg-mfh-mysteryshow';
 const nodecg = ctx.get();
 /**
  * This is where you can declare all your replicant to import easily into other files,
@@ -21,13 +21,17 @@ export const stopTimerWhenDoneRep = nodecg.Replicant<boolean>(
     defaultValue: true,
   }
 );
-export const stopTimerWhenDoneCountRep = nodecg.Replicant<number>(
-  'stopTimerWhenDoneCount',
+export const stopTimerConditionRep = nodecg.Replicant<number>(
+  'stopTimerCondition',
   BUNDLE_NAMESPACE,
   {
-    defaultValue: 2,
+    defaultValue: 3600,
   }
 );
+
+// TODO Make this a number, only do the string parsing on the client where it's relevant.
+// If the parse is invalid, don't let the user enable the switch and give them an error message.
+// Give the timer a more reliable way of testing whether the current milliseconds meet the auto-stop condition.
 
 export const gameModel = nodecg.Replicant<GameOptions>('game', BUNDLE_NAMESPACE, {
   defaultValue: { game: 'Retro Garbage', goal: '', platform: '' },

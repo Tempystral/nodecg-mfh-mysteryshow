@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/ts/constants';
+import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/extension/constants';
 import { TwitchGameData } from '@nodecg-mfh-mysterytournament/types';
 import { useReplicant } from 'nodecg-vue-composable';
 import { computed, ref, watch, watchEffect } from 'vue';

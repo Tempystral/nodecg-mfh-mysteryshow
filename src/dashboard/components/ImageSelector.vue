@@ -28,7 +28,7 @@
 import { useAssetReplicant, useReplicant } from 'nodecg-vue-composable';
 import type NodeCG from '@nodecg/types';
 import { computed, ref, watch } from 'vue';
-import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/ts/constants';
+import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/extension/constants';
 
 const props = defineProps<{
   assetName: string;

@@ -14,5 +14,6 @@ export = (nodecg: NodeCG.ServerAPI): void => {
    * things to be loaded *after* the NodeCG context is set.
    */
   set(nodecg);
+  require("./util");
   require('./timer');
 };
