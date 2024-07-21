@@ -196,7 +196,7 @@ function clear() {
         hide-details
         label="Line Width">
         <template #append>
-          <v-icon :size="thickness" class="me-2" >mdi-circle</v-icon>
+          <v-icon :size="thickness" class="me-2">mdi-circle</v-icon>
           {{ thickness }}
         </template>
       </v-slider>
@@ -207,9 +207,6 @@ function clear() {
 </template>
 
 <style lang="scss">
-@import '/node_modules/vuetify/';
-@import '@src/assets/scss/style.scss';
-
 .telestrator-container {
   overflow: hidden;
   margin: -15px;

@@ -1,2 +1,1 @@
-export * from "./util";
-export * from "./vuetify";
+export * from './util';

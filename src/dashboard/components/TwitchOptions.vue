@@ -207,7 +207,3 @@ function toggleHelp() {
     </v-main>
   </v-app>
 </template>
-<style lang="scss">
-@import '/node_modules/vuetify/';
-@import '@src/assets/scss/style.scss';
-</style>

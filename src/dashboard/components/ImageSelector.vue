@@ -8,7 +8,13 @@
       <v-row class="align-center">
         <v-col v-for="image in imagesReversed" :key="image.url">
           <v-item v-slot="{ selectedClass, toggle }">
-            <v-img :src="image.url" aspect-ratio="1" class="select-img-wrap" :class="selectedClass" cover @click="toggle">
+            <v-img
+              :src="image.url"
+              aspect-ratio="1"
+              class="select-img-wrap"
+              :class="selectedClass"
+              cover
+              @click="toggle">
               <div class="select-img-border"></div>
             </v-img>
             <div class="text-center">{{ image.name }}</div>
@@ -18,11 +24,6 @@
     </v-container>
   </v-item-group>
 </template>
-
-<style lang="scss">
-@import '/node_modules/vuetify/';
-@import '@src/assets/scss/style.scss';
-</style>
 
 <script setup lang="ts">
 import { useAssetReplicant, useReplicant } from 'nodecg-vue-composable';
@@ -43,14 +44,13 @@ const itemGroup = ref(0);
 function select() {
   asset!.data = imagesReversed.value[selected.value];
   asset!.save();
-  
 }
 
 function updateSelection() {
   itemGroup.value += 1; // vuetify bug workaround
   const index = images.value.findIndex((image) => image.url === asset?.data?.url);
   selected.value = index !== -1 ? index : 0;
-  console.log(selected.value)
+  console.log(selected.value);
 }
 
 watch(images, () => {

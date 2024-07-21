@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { formatTimer, parseTime } from '@nodecg-mfh-mysterytournament/extension/util/time';
@@ -16,13 +15,13 @@ const numPlayers = ref([1, 2, 3, 4]);
 const stopTime = ref<string>('01:00:00');
 const stopTimeValid = ref(true);
 
-watch(stopTime, time => {
+watch(stopTime, (time) => {
   const timeSec = parseTime(time);
-  stopTimeValid.value = Boolean(timeSec)
+  stopTimeValid.value = Boolean(timeSec);
   if (stopTimerWhenDone?.data && stopTimeValid.value && timeSec) {
     stopTimerCondition!.data = timeSec;
     stopTimerCondition?.save();
-  } 
+  }
 });
 
 const timerText = computed({
@@ -44,7 +43,7 @@ function pause() {
 }
 
 function resume() {
-  nodecg.sendMessage("timerResume", BUNDLE_NAMESPACE);
+  nodecg.sendMessage('timerResume', BUNDLE_NAMESPACE);
 }
 
 function reset() {
@@ -87,7 +86,7 @@ function applyTime(event: KeyboardEvent) {
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn color="blue" @click="resume" block >
+            <v-btn color="blue" @click="resume" block>
               <v-icon dark size="x-large"> mdi-play-pause </v-icon>
             </v-btn>
           </v-col>
@@ -105,9 +104,14 @@ function applyTime(event: KeyboardEvent) {
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="mb-3" >
+          <v-col class="mb-3">
             <div class="d-flex justify-center align-center ga-2">
-              <v-switch v-model="stopTimerWhenDone!.data" @update:model-value="stopTimerWhenDone?.save" :hide-details="true" color="primary" class="flex-0-1"  />
+              <v-switch
+                v-model="stopTimerWhenDone!.data"
+                @update:model-value="stopTimerWhenDone?.save"
+                :hide-details="true"
+                color="primary"
+                class="flex-0-1" />
               <span>Halt after</span>
               <v-text-field
                 v-model="stopTime"
@@ -116,7 +120,7 @@ function applyTime(event: KeyboardEvent) {
                 :variant="'underlined'"
                 class="d-inline-block"
                 :error-messages="stopTimeValid ? null : 'Format not valid'" />
-              </div>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -125,9 +129,6 @@ function applyTime(event: KeyboardEvent) {
 </template>
 
 <style lang="scss">
-@import '/node_modules/vuetify/';
-@import '@src/assets/scss/style.scss';
-
 .timer.v-input {
   padding-top: 0;
   margin-top: 0;

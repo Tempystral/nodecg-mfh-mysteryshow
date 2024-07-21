@@ -59,25 +59,26 @@ function setBoxart(val: string) {
             <v-card variant="tonal" v-if="boxartModel">
               <v-card-title>Boxart</v-card-title>
               <v-card-text>
-                <v-row><v-col>
-                <v-img
-                  :src="boxartModel.data?.url ?? ''"
-                  aspect-ratio="1"
-                  class="select-img-wrap"
-                  cover
-                  nodecg-dialog="boxart-select-dialog">
-                  <div class="select-img-border"></div>
-                </v-img>
+                <v-row
+                  ><v-col>
+                    <v-img
+                      :src="boxartModel.data?.url ?? ''"
+                      aspect-ratio="1"
+                      class="select-img-wrap"
+                      cover
+                      nodecg-dialog="boxart-select-dialog">
+                      <div class="select-img-border"></div>
+                    </v-img>
 
-                <v-text-field
-                  :model-value="boxartModel.data?.url"
-                  @update:model-value="setBoxart"
-                  label="URL"
-                  variant="outlined"
-                  density="compact"
-                  hide-details
-                  class="ma-2" />
-                </v-col></v-row>
+                    <v-text-field
+                      :model-value="boxartModel.data?.url"
+                      @update:model-value="setBoxart"
+                      label="URL"
+                      variant="outlined"
+                      density="compact"
+                      hide-details
+                      class="ma-2" /> </v-col
+                ></v-row>
               </v-card-text>
               <v-card-actions>
                 <v-btn text="Upload" color="primary" @click="uploadBoxart" />
@@ -89,7 +90,3 @@ function setBoxart(val: string) {
     </v-main>
   </v-app>
 </template>
-<style lang="scss">
-@import '/node_modules/vuetify/';
-@import '@src/assets/scss/style.scss';
-</style>
