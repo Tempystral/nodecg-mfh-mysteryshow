@@ -52,12 +52,6 @@
         "title": "Twitch Options",
         "file": "twitchOptions.html",
         "width": 2
-      },
-      {
-        "name": "telestrator",
-        "title": "Telestrator",
-        "file": "telestrator.html",
-        "width": 6
       }
     ],
     "assetCategories": [

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import _ from 'lodash';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useMousePosition, type Line, type Point } from '../composables/pen';
 
 const colors = [
@@ -18,16 +18,30 @@ const colors = [
   '#a52a2a',
   '#808080',
 ];
-const lines = ref([]);
+
 const canvas = ref<HTMLCanvasElement | null>(null);
+const bounds = computed(() => canvas.value?.getBoundingClientRect());
 const ctx = ref<CanvasRenderingContext2D | null>(null);
+
+const lines = ref([]);
 const color = ref('#ffff00');
 const thickness = ref(5);
 
 const { mouseDown, mouseUp, mouseMove } = useMousePosition({
   onMouseUp: sendLine,
   onMouseMove: sendLine,
+  adjustPos: normalizeMouse,
 });
+
+function normalizeMouse(pos: Point) {
+  if (canvas.value && bounds.value) {
+    pos.x /= bounds.value.width;
+    pos.y /= bounds.value.height;
+    pos.x *= canvas.value.width;
+    pos.y *= canvas.value.height;
+  }
+  return pos;
+}
 
 function loadDefaultCanvasSettings(ctx: CanvasRenderingContext2D | null) {
   if (ctx) {
@@ -38,6 +52,19 @@ function loadDefaultCanvasSettings(ctx: CanvasRenderingContext2D | null) {
   }
   return ctx;
 }
+
+onMounted(() => {
+  // initialize canvas
+  if (canvas.value) {
+    canvas.value.width = window.innerWidth;
+    canvas.value.height = window.innerHeight;
+    ctx.value = canvas.value.getContext('2d');
+    loadDefaultCanvasSettings(ctx.value);
+  }
+
+  nodecg.listenFor('addTelestratorLine', drawLine);
+  nodecg.listenFor('clearTelestrator', clear);
+});
 
 function sendLine(start: Point, end: Point) {
   nodecg.sendMessage('addTelestratorLine', {
@@ -58,19 +85,6 @@ function drawLine(line: Line) {
     ctx.value.stroke();
   }
 }
-
-onMounted(() => {
-  // initialize canvas
-  if (canvas.value) {
-    canvas.value.width = 1920;
-    canvas.value.height = 1080;
-    ctx.value = canvas.value.getContext('2d');
-    loadDefaultCanvasSettings(ctx.value);
-  }
-
-  nodecg.listenFor('addTelestratorLine', drawLine);
-  nodecg.listenFor('clearTelestrator', clear);
-});
 
 function clearBtn() {
   nodecg.sendMessage('clearTelestrator');
@@ -161,45 +175,57 @@ function clear() {
 </script>
 
 <template>
-  <v-app>
-    <v-main>
-      <v-container>
-        <div class="telestrator-container">
-          <canvas
-            ref="canvas"
-            id="telestrator"
-            @mousedown="mouseDown"
-            @mouseup="mouseUp"
-            @mousemove="mouseMove"></canvas>
+  <div class="telestrator-container">
+    <canvas
+      ref="canvas"
+      id="telestrator"
+      @mousedown="mouseDown"
+      @mouseup="mouseUp"
+      @mousemove="mouseMove"></canvas>
 
-          <div class="telestrator-controls" @click.stop>
-            <v-btn v-for="c in colors" :key="c" :color="c" @click="color = c" >
-              <v-icon v-if="color == c">mdi-check</v-icon>
-            </v-btn>
-            <div style="width: 100px">
-              <v-slider
-                v-model="thickness"
-                min="1"
-                max="50"
-                step="1"
-                thumb-label
-                :thumb-size="thickness"></v-slider>
-            </div>
-            <v-btn style="margin-left: 2em" @click="clearBtn">Clear</v-btn>
-          </div>
-        </div>
-      </v-container>
-    </v-main>
-  </v-app>
+    <v-toolbar class="telestrator-controls pa-2" density="compact" @click.stop>
+      <v-btn v-for="c in colors" variant="flat" class="me-2" :key="c" :color="c" @click="color = c">
+        <v-icon v-if="color == c">mdi-check</v-icon>
+      </v-btn>
+      <v-slider
+        v-model="thickness"
+        min="1"
+        max="50"
+        step="1"
+        :color="color"
+        hide-details
+        label="Line Width">
+        <template #append>
+          <v-icon :size="thickness" class="me-2" >mdi-circle</v-icon>
+          {{ thickness }}
+        </template>
+      </v-slider>
+      <v-btn class="ms-2" variant="flat" @click="clearBtn">Clear</v-btn>
+      <v-spacer />
+    </v-toolbar>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '/node_modules/vuetify/';
+@import '@src/assets/scss/style.scss';
+
+.telestrator-container {
+  overflow: hidden;
+  margin: -15px;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 canvas {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1000;
+  width: 100%;
+  height: auto;
 }
 
 .telestrator-controls {
@@ -211,13 +237,6 @@ canvas {
   top: 0;
   left: 0;
   z-index: 1001;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
-  padding: 10px;
   width: 100%;
   box-sizing: border-box;
 
