@@ -7,7 +7,7 @@
       "type": "string",
       "default": ""
     },
-    "goal": {
+    "gamemaster": {
       "type": "string",
       "default": ""
     },
@@ -16,5 +16,5 @@
       "default": ""
     }
   },
-  "required": ["game", "goal", "platform"]
+  "required": ["game", "gamemaster", "platform"]
 }

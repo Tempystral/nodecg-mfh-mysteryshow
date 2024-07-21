@@ -34,7 +34,7 @@ export const stopTimerConditionRep = nodecg.Replicant<number>(
 // Give the timer a more reliable way of testing whether the current milliseconds meet the auto-stop condition.
 
 export const gameModel = nodecg.Replicant<GameOptions>('game', BUNDLE_NAMESPACE, {
-  defaultValue: { game: 'Retro Garbage', goal: '', platform: '' },
+  defaultValue: { game: 'Retro Garbage', gamemaster: '', platform: '' },
 });
 
 export const boxart = nodecg.Replicant<NodeCG.AssetFile>('currentBoxart', BUNDLE_NAMESPACE, {
@@ -50,7 +50,7 @@ export const boxart = nodecg.Replicant<NodeCG.AssetFile>('currentBoxart', BUNDLE
 });
 
 export const twitchTemplate = nodecg.Replicant<string>('twitchTemplate', BUNDLE_NAMESPACE, {
-  defaultValue: "Kusogrand8! Four-way match in Mystery Game!"
+  defaultValue: 'Kusogrand8! Four-way match in Mystery Game!',
 });
 
 // const waitScreenState = useReplicant('waitScreenState', undefined, { defaultValue: 0 });

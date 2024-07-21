@@ -14,14 +14,7 @@ const flashingWarning = ref(false);
 const template = ref('');
 const twitchTemplate = useReplicant<string>('twitchTemplate', BUNDLE_NAMESPACE);
 
-const placeholders = [
-  '{player1}',
-  '{player2}',
-  '{player3}',
-  '{player4}',
-  '{game}',
-  '{platform}',
-];
+const placeholders = ['{player1}', '{player2}', '{player3}', '{player4}', '{game}', '{platform}'];
 
 const templates = [
   { title: 'Group Match', value: 'Kusogrand8! Four-way match in {game} ({platform})!' },
@@ -141,7 +134,6 @@ function toggleHelp() {
         <v-btn class="mb-3" text="Quick Templates" block @click="toggleQuickTemplates" />
 
         <v-btn
-          class="mb-3"
           color="primary"
           text="Apply Stream Title"
           block

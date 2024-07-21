@@ -30,10 +30,13 @@
 			"**/bower_components": true,
 			"**/*.code-search": true
 		},
+		// JS and TS
 		"typescript.tsdk": "node_modules/typescript/lib",
-		"emmet.includeLanguages": { "vue": "html" },
+		// Formatting and Linting
+		"editor.formatOnSave": true,
 		"editor.codeActionsOnSave": {
-			"source.fixAll": "explicit"
+			"source.fixAll.eslint": "always",
+			//"source.organizeImports": "always"
 		},
 		"editor.tabSize": 2,
 		"editor.detectIndentation": false,

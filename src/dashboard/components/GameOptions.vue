@@ -32,40 +32,52 @@ function setBoxart(val: string) {
   <v-app v-if="gameModel?.data">
     <v-main>
       <v-container>
-        <v-row>
+        <v-row dense>
           <v-col>
             <v-text-field
               v-model="gameModel.data.game"
               @update:model-value="gameModel.save"
-              label="Game name" />
+              label="Game name"
+              density="comfortable"
+              class="mb-2"
+              hide-details />
             <v-text-field
               v-model="gameModel.data.platform"
               @update:model-value="gameModel.save"
-              label="Platform" />
+              label="Platform"
+              density="comfortable"
+              class="mb-2"
+              hide-details />
             <v-text-field
-              v-model="gameModel.data.goal"
+              v-model="gameModel.data.gamemaster"
               @update:model-value="gameModel.save"
-              label="Goal" />
+              label="Gamemaster"
+              density="comfortable"
+              class="mb-2"
+              hide-details />
 
-            <v-card class="mb-4" variant="tonal" v-if="boxartModel">
+            <v-card variant="tonal" v-if="boxartModel">
               <v-card-title>Boxart</v-card-title>
               <v-card-text>
-                <v-row>
-                  <v-col>
-                    <div class="select-img-wrap mb-3" nodecg-dialog="boxart-select-dialog">
-                      <img class="select-img" :src="boxartModel.data?.url ?? ''" />
-                      <div class="select-img-border"></div>
-                    </div>
-                    <v-text-field
-                      :model-value="boxartModel.data?.url"
-                      @update:model-value="setBoxart"
-                      label="URL"
-                      variant="outlined"
-                      density="compact"
-                      hide-details
-                      class="me-2" />
-                  </v-col>
-                </v-row>
+                <v-row><v-col>
+                <v-img
+                  :src="boxartModel.data?.url ?? ''"
+                  aspect-ratio="1"
+                  class="select-img-wrap"
+                  cover
+                  nodecg-dialog="boxart-select-dialog">
+                  <div class="select-img-border"></div>
+                </v-img>
+
+                <v-text-field
+                  :model-value="boxartModel.data?.url"
+                  @update:model-value="setBoxart"
+                  label="URL"
+                  variant="outlined"
+                  density="compact"
+                  hide-details
+                  class="ma-2" />
+                </v-col></v-row>
               </v-card-text>
               <v-card-actions>
                 <v-btn text="Upload" color="primary" @click="uploadBoxart" />

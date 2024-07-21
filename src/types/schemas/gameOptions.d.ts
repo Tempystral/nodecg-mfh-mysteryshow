@@ -7,6 +7,6 @@
 
 export interface GameOptions {
 	game: string;
-	goal: string;
+	gamemaster: string;
 	platform: string;
 }
