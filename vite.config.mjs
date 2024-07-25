@@ -14,7 +14,11 @@ export default defineConfig({
     port: 5173,
   },
   plugins: [
-    vue(),
+    vue({
+      script: {
+        defineModel: true,
+      },
+    }),
     Vuetify({
       autoImport: true,
       styles: { configFile: './src/assets/scss/vuetify-variables.scss' },

@@ -1,52 +1,52 @@
 {
-	"folders": [
-		{
-			"name": "bundle",
-			"path": ".."
-		},
-		{
-			"name": "bundle-old",
-			"path": "../old"
-		},
-		{
-			"name": "Config",
-			"path": "../../../nodecg/cfg"
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/.git": true,
-			"**/.svn": true,
-			"**/.hg": true,
-			"**/CVS": true,
-			"**/.DS_Store": true,
-			"**/Thumbs.db": true,
-			// These redirect to the root-level configs, no contents
-			"**/tsconfig.json": true,
-			"**/.eslintrc.js": true,
-		},
-		"search.exclude": {
-			"**/node_modules": true,
-			"**/bower_components": true,
-			"**/*.code-search": true
-		},
-		// JS and TS
-		"typescript.tsdk": "node_modules/typescript/lib",
-		// Formatting and Linting
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.fixAll.eslint": "always",
-			//"source.organizeImports": "always"
-		},
-		"editor.tabSize": 2,
-		"editor.detectIndentation": false,
-	},
-	"extensions": {
-		"recommendations": [
-			"esbenp.prettier-vscode",
-			"vue.vscode-typescript-vue-plugin",
-			"vue.volar",
-			"dbaeumer.vscode-eslint"
-		]
-	}
+  "folders": [
+    {
+      "name": "bundle",
+      "path": ".."
+    },
+    {
+      "name": "bundle-old",
+      "path": "../old"
+    },
+    {
+      "name": "Config",
+      "path": "../../../nodecg/cfg"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      // These redirect to the root-level configs, no contents
+      //"**/tsconfig.json": true,
+      "**/.eslintrc.js": true,
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/*.code-search": true
+    },
+    // JS and TS
+    "typescript.tsdk": "node_modules/typescript/lib",
+    // Formatting and Linting
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always",
+      //"source.organizeImports": "always"
+    },
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "vue.vscode-typescript-vue-plugin",
+      "vue.volar",
+      "dbaeumer.vscode-eslint"
+    ]
+  }
 }

@@ -1,15 +1,24 @@
 /* eslint-disable max-len */
 
-import { DashboardTimer, GameOptions } from '@nodecg-mfh-mysterytournament/types';
-import * as ctx from './nodecg';
-import NodeCG from '@nodecg/types';
 import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/constants';
+import {
+  DashboardOption,
+  DashboardTimer,
+  GameOptions,
+  PlayerOptions,
+} from '@nodecg-mfh-mysterytournament/types';
+import NodeCG from '@nodecg/types';
+import * as ctx from './nodecg';
 
 const nodecg = ctx.get();
 /**
  * This is where you can declare all your replicant to import easily into other files,
  * and to make sure they have any correct settings on startup.
  */
+
+function makeName(player: number, name: string) {
+  return `player${player}${name}`;
+}
 
 export const timerRep = nodecg.Replicant<DashboardTimer>('timer', BUNDLE_NAMESPACE, {
   defaultValue: { ms: 0, pausedMs: 0, state: 'stopped' },
@@ -52,6 +61,42 @@ export const boxart = nodecg.Replicant<NodeCG.AssetFile>('currentBoxart', BUNDLE
 export const twitchTemplate = nodecg.Replicant<string>('twitchTemplate', BUNDLE_NAMESPACE, {
   defaultValue: 'Kusogrand8! Four-way match in Mystery Game!',
 });
+
+export const playerNames = [1, 2, 3, 4].map((player) =>
+  nodecg.Replicant<string>(makeName(player, 'name'), BUNDLE_NAMESPACE, {
+    defaultValue: '',
+  })
+);
+export const playerPronouns = [1, 2, 3, 4].map((player) =>
+  nodecg.Replicant<string>(makeName(player, 'pronouns'), BUNDLE_NAMESPACE, {
+    defaultValue: '',
+  })
+);
+export const playerTwitchNames = [1, 2, 3, 4].map((player) =>
+  nodecg.Replicant<string>(makeName(player, 'twitch'), BUNDLE_NAMESPACE, {
+    defaultValue: '',
+  })
+);
+export const playerAspectRatios = [1, 2, 3, 4].map((player) =>
+  nodecg.Replicant<DashboardOption>(makeName(player, 'aspectRatio'), BUNDLE_NAMESPACE, {
+    defaultValue: {
+      text: 'Auto',
+      value: 'false',
+    },
+  })
+);
+
+export const playerOptionReps = [1, 2, 3, 4].map((player) =>
+  nodecg.Replicant<PlayerOptions>(makeName(player, 'playerOptions'), BUNDLE_NAMESPACE, {
+    defaultValue: {
+      name: '',
+      pronouns: '',
+      twitch: '',
+      isZombie: false,
+      isAudible: false,
+    },
+  })
+);
 
 // const waitScreenState = useReplicant('waitScreenState', undefined, { defaultValue: 0 });
 
