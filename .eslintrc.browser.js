@@ -16,12 +16,10 @@ module.exports = {
     nodecg: 'readonly',
     NodeCG: 'readonly',
   },
-  plugins: [
-    '@typescript-eslint',
-  ],
+  plugins: ['@typescript-eslint'],
   extends: [
     'plugin:vue/essential',
-	  'plugin:vuetify/base',
+    'plugin:vuetify/base',
     'airbnb-base',
     'airbnb-typescript/base',
     'eslint:recommended',
@@ -32,7 +30,7 @@ module.exports = {
     'import/resolver': {
       typescript: {
         // This is needed to properly resolve paths.
-        project: 'tsconfig.browser.json',
+        project: 'src/dashboard/tsconfig.json',
       },
     },
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
@@ -41,24 +39,28 @@ module.exports = {
     // Everything is compiled for the browser so dev dependencies are fine.
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     // max-len set to ignore "import" lines (as they usually get long and messy).
-    'max-len': "off", //['error', { code: 100, ignorePattern: '^import\\s.+\\sfrom\\s.+;' }],
+    'max-len': 'off', //['error', { code: 100, ignorePattern: '^import\\s.+\\sfrom\\s.+;' }],
     // I mainly have this off as it ruins auto import sorting in VSCode.
     'object-curly-newline': 'off',
     // Allows "main.vue" files to be named as such.
-    'vue/multi-word-component-names': ['error', { 'ignores': ['main'] }],
+    'vue/multi-word-component-names': ['error', { ignores: ['main'] }],
     // Not sure how much this is needed anymore?
-    'import/extensions': ['error', 'ignorePackages', {
-      js: 'never',
-      jsx: 'never',
-      ts: 'never',
-      tsx: 'never',
-    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
 
-    "no-fallthrough": "off",
-    "prefer-const": "error",
-    "no-mixed-spaces-and-tabs": "off",
-    "no-unused-vars": "off",
-    "no-multiple-empty-lines": "off",
-	'no-tabs': "off",
-  }
+    'no-fallthrough': 'off',
+    'prefer-const': 'error',
+    'no-mixed-spaces-and-tabs': 'off',
+    'no-unused-vars': 'off',
+    'no-multiple-empty-lines': 'off',
+    'no-tabs': 'off',
+  },
 };
