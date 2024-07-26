@@ -5,13 +5,14 @@ import { PlayerOptions } from '@nodecg-mfh-mysterytournament/types';
 import { useReplicant } from 'nodecg-vue-composable';
 import { ref } from 'vue';
 import PlayerOptionCard from '../cards/PlayerOptionCard.vue';
+import { range } from 'lodash';
 
 const props = defineProps<{
   numPlayers: number;
 }>();
 
 const colors = ['blue', 'cyan', 'teal', 'green'];
-const playerOptions = [1, 2, 3, 4].map((i) =>
+const playerOptions = range(1, props.numPlayers + 1).map((i) =>
   useReplicant<PlayerOptions>(asPlayer(i).makeName('playerOptions'), BUNDLE_NAMESPACE)
 );
 
