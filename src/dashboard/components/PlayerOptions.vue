@@ -16,7 +16,7 @@ const playerOptions = range(1, props.numPlayers + 1).map((i) =>
   useReplicant<PlayerOptions>(asPlayer(i).makeName('playerOptions'), BUNDLE_NAMESPACE)
 );
 
-const audiblePlayers = ref([false, false, false, false]);
+const audiblePlayers = ref(new Array(props.numPlayers).fill(false));
 
 function makeAudible(id: number, state: boolean) {
   audiblePlayers.value.fill(false);

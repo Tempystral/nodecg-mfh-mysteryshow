@@ -3,11 +3,11 @@ import { createVuetify } from 'vuetify';
 import opts from './ts/vuetify';
 import 'vuetify/styles';
 import '@src/assets/scss/style.scss';
-import ImageSelector from './components/ImageSelector.vue';
+import ImageSelector from './components/dialogs/ImageSelector.vue';
 
 createApp(ImageSelector, {
   assetName: 'boxarts',
-  destinationReplicant: 'currentBoxart',
+  destinationReplicant: 'boxart',
 })
   .use(createVuetify(opts))
   .mount('#app');
