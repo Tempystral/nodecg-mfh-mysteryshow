@@ -6,13 +6,14 @@
     selected-class="active">
     <v-container>
       <v-row class="align-center">
-        <v-col v-for="image in imagesReversed" :key="image.url">
+        <v-col v-for="(image, i) in imagesReversed" :key="image.url">
           <v-item v-slot="{ selectedClass, toggle }">
             <v-img
               :src="image.url"
               aspect-ratio="1"
               class="select-img-wrap"
               :class="selectedClass"
+              :isSelected="selected === i"
               cover
               @click="toggle">
               <div class="select-img-border"></div>
