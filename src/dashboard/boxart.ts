@@ -7,7 +7,7 @@ import ImageSelector from './components/dialogs/ImageSelector.vue';
 
 createApp(ImageSelector, {
   assetName: 'boxarts',
-  destinationReplicant: 'boxart',
+  destinationReplicant: 'currentBoxart',
 })
   .use(createVuetify(opts))
   .mount('#app');

@@ -35,8 +35,8 @@
         "file": "timer.html"
       },
       {
-        "name": "boxart-select-dialog",
-        "title": "Select Boxart",
+        "name": "image-select-dialog",
+        "title": "Select Image",
         "file": "boxart.html",
         "width": 7,
         "dialog": true
@@ -71,6 +71,17 @@
       {
         "name": "boxarts",
         "title": "Game Boxarts",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png",
+          "webp"
+        ]
+      },
+      {
+        "name": "avatars",
+        "title": "Player Avatars",
         "allowedTypes": [
           "jpg",
           "jpeg",

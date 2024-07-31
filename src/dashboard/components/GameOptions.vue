@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/extension/constants';
 import { GameOptions } from '@nodecg-mfh-mysterytournament/types';
-import NodeCG from '@nodecg/types';
 import { useReplicant } from 'nodecg-vue-composable';
 import ImageSelectCard from '../cards/ImageSelectCard.vue';
 
@@ -35,7 +34,7 @@ const gameModel = useReplicant<GameOptions>('game', BUNDLE_NAMESPACE);
               class="mb-2"
               hide-details />
 
-            <ImageSelectCard replicant-name="boxart" />
+            <ImageSelectCard title="Boxart" assetName="boxarts" replicant-name="currentBoxart" />
           </v-col>
         </v-row>
       </v-container>

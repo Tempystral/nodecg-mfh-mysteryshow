@@ -9,6 +9,7 @@ import {
 } from '@nodecg-mfh-mysterytournament/types';
 import NodeCG from '@nodecg/types';
 import * as ctx from './nodecg';
+import AssetFile from '@nodecg/types/server/assets/AssetFile';
 
 const nodecg = ctx.get();
 /**
@@ -96,6 +97,45 @@ export const playerOptionReps = [1, 2, 3, 4].map((player) =>
       isAudible: false,
     },
   })
+);
+
+export const playerImageReps = [1, 2, 3, 4].map((player) =>
+  nodecg.Replicant<AssetFile>(makeName(player, 'Image'), BUNDLE_NAMESPACE, {
+    defaultValue: {
+      sum: '',
+      base: '',
+      ext: '',
+      name: '',
+      namespace: '',
+      category: '',
+      url: '',
+    },
+  })
+);
+
+export const selectableAssetName = nodecg.Replicant<string>(
+  'selectableAssetName',
+  BUNDLE_NAMESPACE,
+  {
+    defaultValue: 'currentBoxart',
+  }
+);
+export const assetCollectionName = nodecg.Replicant<string>(
+  'selectableAssetCollection',
+  BUNDLE_NAMESPACE,
+  {
+    defaultValue: 'boxarts',
+  }
+);
+
+nodecg.listenFor(
+  'setImageSelectorReplicant',
+  BUNDLE_NAMESPACE,
+  (msg: { asset: string; replicant: string }) => {
+    selectableAssetName.value = msg.asset;
+    assetCollectionName.value = msg.replicant;
+    console.log(`Rep set: ${assetCollectionName.value} | Asset set: ${selectableAssetName.value}`);
+  }
 );
 
 // const waitScreenState = useReplicant('waitScreenState', undefined, { defaultValue: 0 });

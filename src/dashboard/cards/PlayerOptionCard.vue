@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { PlayerOptions } from '@nodecg-mfh-mysterytournament/types';
+import { ref } from 'vue';
 import { pronounOptions } from '../ts/options';
-import { watch } from 'vue';
+import ImageSelectCard from './ImageSelectCard.vue';
 
 const props = defineProps<{
   playerNumber: number;
@@ -13,6 +13,8 @@ const pronouns = defineModel<string>('pronouns', { required: true });
 const twitch = defineModel<string>('twitch', { required: true });
 const isZombie = defineModel<boolean>('isZombie', { required: true });
 const isAudible = defineModel<boolean>('isAudible', { required: true });
+
+const imgPanelVisible = ref(false);
 </script>
 <template>
   <div>
@@ -58,6 +60,38 @@ const isAudible = defineModel<boolean>('isAudible', { required: true });
               density="comfortable" />
           </v-col>
         </v-row>
+        <v-row>
+          <v-spacer />
+          <v-col>
+            <v-btn size="default" outlined color="warning" @click="imgPanelVisible = true">
+              Select profile image&nbsp;<v-icon>mdi-image</v-icon>
+            </v-btn>
+          </v-col>
+          <v-spacer />
+        </v-row>
+        <v-bottom-sheet v-model="imgPanelVisible" :contained="true">
+          <v-card>
+            <v-card-title class="mb-n4">
+              <v-row>
+                <v-col class="d-flex align-center">Player {{ playerNumber }} Image</v-col>
+                <v-col cols="3">
+                  <v-btn
+                    icon="mdi-close"
+                    @click="imgPanelVisible = false"
+                    size="small"
+                    variant="plain"
+                    class="ms-2" />
+                </v-col>
+              </v-row>
+            </v-card-title>
+            <v-card-text>
+              <ImageSelectCard
+                title="Avatar"
+                asset-name="avatars"
+                :replicant-name="`player${playerNumber}Image`" />
+            </v-card-text>
+          </v-card>
+        </v-bottom-sheet>
       </v-card-text>
     </v-card>
   </div>

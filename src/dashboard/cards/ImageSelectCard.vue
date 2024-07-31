@@ -4,12 +4,11 @@ import NodeCG from '@nodecg/types';
 import { useReplicant } from 'nodecg-vue-composable';
 import { capitalize } from 'vue';
 
-const props = defineProps({
-  replicantName: {
-    required: true,
-    type: String,
-  },
-});
+const props = defineProps<{
+  title: string;
+  assetName: string;
+  replicantName: string;
+}>();
 
 const imageRep = useReplicant<NodeCG.AssetFile>(props.replicantName, BUNDLE_NAMESPACE, {
   defaultValue: {
@@ -33,11 +32,18 @@ function setImageModel(val: string) {
     imageRep.save();
   }
 }
+
+function showImageSelector() {
+  nodecg.sendMessageToBundle('setImageSelectorReplicant', BUNDLE_NAMESPACE, {
+    asset: props.assetName,
+    replicant: props.replicantName,
+  });
+}
 </script>
 <template>
   <v-card variant="tonal" v-if="imageRep">
-    <v-card-title>Boxart</v-card-title>
-    <v-card-text>
+    <v-card-title v-if="title">{{ capitalize(title) }}</v-card-title>
+    <v-card-text class="mb-n6">
       <v-row>
         <v-col>
           <v-img
@@ -45,7 +51,8 @@ function setImageModel(val: string) {
             aspect-ratio="1"
             class="select-img-wrap"
             cover
-            :nodecg-dialog="`${replicantName}-select-dialog`">
+            @click="showImageSelector"
+            :nodecg-dialog="`image-select-dialog`">
             <div class="select-img-border"></div>
           </v-img>
 
