@@ -39,7 +39,7 @@ watch(() => assetName?.data, setAssetCollection);
 watch(destinationRepName, setAssetCollection);
 onMounted(setAssetCollection);
 
-const selected = ref<number>(0);
+const selected = ref<number>(-1);
 const itemGroup = ref(0);
 
 function select() {
@@ -54,11 +54,11 @@ function updateSelection() {
   const index = assetListRev.value.findIndex(
     (image) => image.url === selectedAsset?.value?.data?.url
   );
-  selected.value = index !== -1 ? index : 0;
+  selected.value = index !== -1 ? index : -1;
   console.log(selected.value);
 }
 
-watch(() => selectedAsset, updateSelection);
+watch(() => selectedAsset?.value, updateSelection);
 </script>
 <template>
   <v-item-group
