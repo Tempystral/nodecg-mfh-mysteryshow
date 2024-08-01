@@ -38,30 +38,24 @@ const imgPanelVisible = ref(false);
         <!-- <v-text-field v-model="flag" class="font-weight-bold" label="Flag" /> -->
         <!-- <v-divider class="mb-7 mt-4" /> -->
 
-        <v-text-field
+        <!-- <v-text-field
           v-model="twitch"
           label="Twitch"
           prefix="twitch.tv/"
           density="comfortable"
-          hide-details />
+          hide-details /> -->
 
-        <v-row>
+        <v-row dense>
           <v-col>
-            <v-checkbox
-              label="Is Zombie?"
-              v-model="isZombie"
-              prepend-icon="mdi-skull"
-              hide-details
-              density="comfortable" />
-            <v-checkbox
-              label="Has Audio?"
-              v-model="isAudible"
-              prepend-icon="mdi-volume-high"
-              hide-details
-              density="comfortable" />
+            <v-checkbox v-model="isZombie" hide-details density="comfortable">
+              <template #label> <v-icon>mdi-skull</v-icon>&nbsp;Zombie </template>
+            </v-checkbox>
+            <v-checkbox v-model="isAudible" hide-details density="comfortable">
+              <template #label> <v-icon>mdi-volume-high</v-icon>&nbsp;Audible </template>
+            </v-checkbox>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row dense>
           <v-spacer />
           <v-col>
             <BottomSheet
