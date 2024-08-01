@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { pronounOptions } from '../ts/options';
 import ImageSelectCard from './ImageSelectCard.vue';
+import BottomSheet from '../components/BottomSheet.vue';
 
 const props = defineProps<{
   playerNumber: number;
@@ -63,34 +64,18 @@ const imgPanelVisible = ref(false);
         <v-row>
           <v-spacer />
           <v-col>
-            <v-btn size="default" outlined color="warning" @click="imgPanelVisible = true">
-              Select profile image&nbsp;<v-icon>mdi-image</v-icon>
-            </v-btn>
-          </v-col>
-          <v-spacer />
-        </v-row>
-        <v-bottom-sheet v-model="imgPanelVisible" :contained="true">
-          <v-card>
-            <v-card-title class="mb-n4">
-              <v-row>
-                <v-col class="d-flex align-center">Player {{ playerNumber }} Image</v-col>
-                <v-col cols="3">
-                  <v-btn
-                    icon="mdi-close"
-                    @click="imgPanelVisible = false"
-                    size="small"
-                    variant="plain"
-                    class="ms-2" />
-                </v-col>
-              </v-row>
-            </v-card-title>
-            <v-card-text>
+            <BottomSheet
+              :title="`Player ${playerNumber} Image`"
+              button-text="Select Profile Image"
+              icon="mdi-image"
+              color="warning">
               <ImageSelectCard
                 asset-name="avatars"
                 :replicant-name="`player${playerNumber}Image`" />
-            </v-card-text>
-          </v-card>
-        </v-bottom-sheet>
+            </BottomSheet>
+          </v-col>
+          <v-spacer />
+        </v-row>
       </v-card-text>
     </v-card>
   </div>

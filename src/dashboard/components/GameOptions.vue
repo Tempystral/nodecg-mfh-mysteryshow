@@ -3,8 +3,12 @@ import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/extension/consta
 import { GameOptions } from '@nodecg-mfh-mysterytournament/types';
 import { useReplicant } from 'nodecg-vue-composable';
 import ImageSelectCard from '../cards/ImageSelectCard.vue';
+import { ref } from 'vue';
+import BottomSheet from './BottomSheet.vue';
 
 const gameModel = useReplicant<GameOptions>('game', BUNDLE_NAMESPACE);
+const showGMImage = ref(false);
+const showBoxart = ref(false);
 </script>
 <template>
   <v-app v-if="gameModel?.data">
@@ -33,9 +37,33 @@ const gameModel = useReplicant<GameOptions>('game', BUNDLE_NAMESPACE);
               density="comfortable"
               class="mb-2"
               hide-details />
-
-            <ImageSelectCard title="Boxart" assetName="boxarts" replicant-name="currentBoxart" />
           </v-col>
+        </v-row>
+        <v-row dense>
+          <v-spacer />
+          <v-col>
+            <BottomSheet
+              :title="`Gamemaster`"
+              button-text="Select GM Image"
+              icon="mdi-account-box-outline"
+              color="info">
+              <ImageSelectCard assetName="avatars" replicant-name="gmImage" />
+            </BottomSheet>
+          </v-col>
+          <v-spacer />
+        </v-row>
+        <v-row dense>
+          <!-- <v-spacer /> -->
+          <v-col>
+            <!-- <BottomSheet
+              :title="`Boxart`"
+              button-text="Select Boxart"
+              icon="mdi-image"
+              color="warning"> -->
+            <ImageSelectCard title="Boxart" assetName="boxarts" replicant-name="currentBoxart" />
+            <!-- </BottomSheet> -->
+          </v-col>
+          <!--           <v-spacer /> -->
         </v-row>
       </v-container>
     </v-main>

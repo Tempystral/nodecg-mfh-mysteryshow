@@ -113,6 +113,18 @@ export const playerImageReps = [1, 2, 3, 4].map((player) =>
   })
 );
 
+export const gamemasterImageRep = nodecg.Replicant<AssetFile>('gmImage', BUNDLE_NAMESPACE, {
+  defaultValue: {
+    sum: '',
+    base: '',
+    ext: '',
+    name: '',
+    namespace: '',
+    category: '',
+    url: '',
+  },
+});
+
 export const selectableAssetName = nodecg.Replicant<string>(
   'selectableAssetName',
   BUNDLE_NAMESPACE,
