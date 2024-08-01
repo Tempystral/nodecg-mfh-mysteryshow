@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { BUNDLE_NAMESPACE } from '@nodecg-mfh-mysterytournament/extension/constants';
-import NodeCG from '@nodecg/types';
-import { useReplicant } from 'nodecg-vue-composable';
+import { Asset, useReplicant } from 'nodecg-vue-composable';
 import { capitalize } from 'vue';
 
 const props = defineProps<{
-  title: string;
+  title?: string;
   assetName: string;
   replicantName: string;
 }>();
 
-const imageRep = useReplicant<NodeCG.AssetFile>(props.replicantName, BUNDLE_NAMESPACE, {
+const imageRep = useReplicant<Asset>(props.replicantName, BUNDLE_NAMESPACE, {
   defaultValue: {
     sum: '',
     base: '',
@@ -23,7 +22,7 @@ const imageRep = useReplicant<NodeCG.AssetFile>(props.replicantName, BUNDLE_NAME
 });
 
 function uploadImage(event: string) {
-  nodecg.sendMessage(`upload${capitalize(props.replicantName)}`, imageRep?.data?.url);
+  nodecg.sendMessage(`uploadAsset`, { asset: props.assetName, url: imageRep?.data?.url });
 }
 
 function setImageModel(val: string) {
@@ -43,7 +42,7 @@ function showImageSelector() {
 <template>
   <v-card variant="tonal" v-if="imageRep">
     <v-card-title v-if="title">{{ capitalize(title) }}</v-card-title>
-    <v-card-text class="mb-n6">
+    <v-card-text>
       <v-row>
         <v-col>
           <v-img
@@ -67,9 +66,9 @@ function showImageSelector() {
         </v-col>
       </v-row>
     </v-card-text>
-    <v-card-actions>
+    <!-- <v-card-actions>
       <v-btn text="Upload" color="primary" @click="uploadImage" />
-    </v-card-actions>
+    </v-card-actions> -->
   </v-card>
 </template>
 <style lang="scss"></style>

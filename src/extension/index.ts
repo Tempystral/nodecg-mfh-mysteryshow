@@ -3,7 +3,10 @@
 // This must go first so we can use module aliases!
 /* eslint-disable import/first */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('module-alias').addAlias('@nodecg-mfh-mysterytournament', require('path').join(__dirname, '.'));
+require('module-alias').addAlias(
+  '@nodecg-mfh-mysterytournament',
+  require('path').join(__dirname, '.')
+);
 
 import type NodeCG from '@nodecg/types';
 import { set } from './util/nodecg';
@@ -14,6 +17,7 @@ export = (nodecg: NodeCG.ServerAPI): void => {
    * things to be loaded *after* the NodeCG context is set.
    */
   set(nodecg);
-  require("./util");
+  require('./util');
   require('./timer');
+  require('./uploader');
 };

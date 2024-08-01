@@ -86,7 +86,6 @@ const imgPanelVisible = ref(false);
             </v-card-title>
             <v-card-text>
               <ImageSelectCard
-                title="Avatar"
                 asset-name="avatars"
                 :replicant-name="`player${playerNumber}Image`" />
             </v-card-text>
