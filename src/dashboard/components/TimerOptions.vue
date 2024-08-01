@@ -42,9 +42,9 @@ function pause() {
   nodecg.sendMessage('timerPause', BUNDLE_NAMESPACE);
 }
 
-function resume() {
+/* function resume() {
   nodecg.sendMessage('timerResume', BUNDLE_NAMESPACE);
-}
+} */
 
 function reset() {
   nodecg.sendMessage('timerReset', BUNDLE_NAMESPACE);
@@ -85,11 +85,11 @@ function applyTime(event: KeyboardEvent) {
               <v-icon dark size="x-large"> mdi-play </v-icon>
             </v-btn>
           </v-col>
-          <v-col>
+          <!-- <v-col>
             <v-btn color="blue" @click="resume" block>
               <v-icon dark size="x-large"> mdi-play-pause </v-icon>
             </v-btn>
-          </v-col>
+          </v-col> -->
 
           <v-col>
             <v-btn color="orange" @click="pause" block :disabled="timer?.data?.state != 'playing'">

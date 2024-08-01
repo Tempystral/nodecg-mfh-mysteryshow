@@ -133,6 +133,13 @@ function tick() {
     timerObj.pausedMs = timer.ms();
     if (state === 'playing') {
       timerObj.ms = timer.ms();
+      if (
+        stopTimerWhenDoneRep.value === true &&
+        timerObj.ms >= stopTimerConditionRep.value * 1000
+      ) {
+        pause();
+        stopTimerWhenDoneRep.value = false;
+      }
     }
 
     updateRep();
